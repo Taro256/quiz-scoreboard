@@ -1,0 +1,364 @@
+:root {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji",
+    "Segoe UI Emoji";
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #0b0f14;
+  color: #e7eef7;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.panel {
+  background: #121a24;
+  border: 1px solid #223042;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.containerDisplay {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 34vh 1fr;
+  gap: 12px;
+  padding: 16px;
+}
+
+.containerControl {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  gap: 12px;
+  padding: 16px;
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #0f2538;
+  border: 1px solid #234a6a;
+  font-size: 12px;
+  color: #cfe6ff;
+}
+
+.btn {
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid #2a3b52;
+  background: #101a26;
+  color: #e7eef7;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #132033;
+}
+
+.btn.primary {
+  border-color: #2c5ea3;
+  background: #123056;
+}
+
+.btn.danger {
+  border-color: #7a2d2d;
+  background: #2a1414;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.input {
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid #2a3b52;
+  background: #0b1017;
+  color: #e7eef7;
+  min-width: 220px;
+}
+
+.miniInput {
+  width: 90px;
+  min-width: 90px;
+  text-align: right;
+}
+
+.questionBox {
+  display: grid;
+  gap: 10px;
+}
+
+.questionId {
+  font-size: 12px;
+  color: #a7b7cc;
+}
+
+.questionText {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.25;
+  white-space: pre-wrap;
+  min-height: 40px;
+}
+
+.answerBox {
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px dashed #2a3b52;
+  background: #0b1017;
+  white-space: pre-wrap;
+  min-height: 54px;
+}
+
+/* ===== Players ===== */
+.gridPlayersWide {
+  height: 100%;
+  display: grid;
+
+  /* カード幅固定 */
+  grid-auto-flow: column;
+  grid-auto-columns: 160px;
+
+  /* 中央寄せ */
+  justify-content: center;
+
+  /* How: 少人数ほど間が広がってほしいので上限高め */
+  gap: clamp(24px, 5vw, 72px);
+
+  /* How: 少人数時の「寄りすぎ」を防ぐため、最大をもう少し大きく */
+  padding-inline: clamp(24px, 10vw, 140px);
+
+  /* Why not: 画面が広いときに間隔が“散りすぎる”のを防ぐ */
+  max-width: 1400px;
+  margin: 0 auto;
+
+  align-content: start;
+}
+
+
+@media (max-width: 1100px) {
+  .gridPlayersWide {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+@media (max-width: 700px) {
+  .gridPlayersWide {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ===== 問題上のコメント表示 ===== */
+.displayComment {
+  margin-bottom: 10px;
+  padding: 6px 12px;
+
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+
+  color: #cfd9e6;
+  opacity: 0.9;
+
+  border-left: 3px solid #3b82f6;
+}
+
+
+.playerCard {
+  position: relative;
+  background: #0e141d;
+  border: 1px solid #223042;
+  border-radius: 12px;
+  padding: 16px;
+
+  /* How: 名前が長くてもカードサイズを固定する */
+  height: 640px;              /* ← ここで固定（1枚目がちょうどいいならこの値が近い） */
+  display: grid;
+  grid-template-rows: 1fr auto;
+  overflow: hidden;           /* Why not: はみ出しでレイアウト崩壊するのを防ぐ */
+}
+
+/* ===== Control用プレイヤーカード ===== */
+.playerCardControl {
+  background: #0e141d;
+  border: 1px solid #223042;
+  border-radius: 12px;
+  padding: 12px;
+
+  /* Why not: Display用の高さ・縦書きを流用しない */
+  height: auto;
+  min-height: 180px;
+
+  display: grid;
+  gap: 10px;
+}
+
+.playerCardControl .playerNameVertical {
+  writing-mode: horizontal-tb; /* ← 縦書きを無効化 */
+  font-size: 18px;
+  letter-spacing: 0;
+  margin: 0;
+  max-height: none;
+}
+
+
+.playerCard.selected {
+  outline: 2px solid #6aa7ff;
+}
+
+.playerNameVertical {
+  font-weight: 900;
+  font-size: 44px;
+  line-height: 1.05;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  letter-spacing: 2px;
+
+  justify-self: center;
+  align-self: start;
+  margin-top: 6px;
+
+  /* How: 長い名前は領域内でクリップ */
+  max-height: 600px;
+  overflow: hidden;
+  /* How: 縦書きの「列折り返し」を禁止する */
+  white-space: nowrap;
+
+  /* Why not: 折り返しではなく切り落とす（カードを崩さない） */
+  overflow: hidden;
+
+  /* 保険（なくてもOKだが入れて損しない） */
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
+/* スコア領域は中央寄せ */
+.scoreBand {
+  border-top: 1px solid #223042;
+  padding-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.scoreValue {
+  font-size: 56px;
+  font-weight: 950;
+  letter-spacing: 1px;
+}
+
+/* 勝ち抜け/失格の強調 */
+.scoreWin {
+  font-size: 44px;
+  font-weight: 950;
+  letter-spacing: 1px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid #33cc66;
+  background: rgba(51, 204, 102, 0.12);
+}
+
+.scoreLose {
+  font-size: 44px;
+  font-weight: 950;
+  letter-spacing: 1px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid #ff4d4d;
+  background: rgba(255, 77, 77, 0.12);
+}
+
+/* NM表示（○×） */
+.nmCounts {
+  display: inline-flex;
+  gap: 12px;
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.nmOk {
+  color: #ff6b6b; /* 赤 */
+}
+
+.nmNg {
+  color: #4da3ff; /* 青 */
+}
+
+/* Flash */
+.flash {
+  position: absolute;
+  inset: -1px;
+  border-radius: 12px;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.flash.correct {
+  outline: 2px solid #33cc66;
+  box-shadow: 0 0 0 2px rgba(51, 204, 102, 0.2);
+  animation: flash 1.5s ease-out 1;
+}
+
+.flash.wrong {
+  outline: 2px solid #ff4d4d;
+  box-shadow: 0 0 0 2px rgba(255, 77, 77, 0.2);
+  animation: flash 1.5s ease-out 1;
+}
+
+@keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.logList {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+  color: #c9d6e6;
+}
+
+.logItem {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1px solid #1c2a3a;
+  padding-bottom: 6px;
+}
+
+.logItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.scoreEdit {
+  width: 92px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  border: 1px solid #2a3b52;
+  background: #0b1017;
+  color: #e7eef7;
+}
