@@ -3,6 +3,11 @@
     "Segoe UI Emoji";
 }
 
+/* How: 下段のスコア帯の高さ（WIN/LOSEのバッジが大きくても揃える） */
+:root {
+  --scoreBandHeight: 96px;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -114,7 +119,7 @@ input {
 }
 
 .questionText {
-  font-size: 26px;
+  font-size: 40px;
   font-weight: 800;
   line-height: 1.25;
   white-space: pre-wrap;
@@ -128,6 +133,7 @@ input {
   background: #0b1017;
   white-space: pre-wrap;
   min-height: 54px;
+  font-size: 26px;
 }
 
 /* ===== Players ===== */
@@ -182,7 +188,6 @@ input {
   border-left: 3px solid #3b82f6;
 }
 
-
 .playerCard {
   position: relative;
   background: #0e141d;
@@ -193,7 +198,8 @@ input {
   /* How: 名前が長くてもカードサイズを固定する */
   height: 640px;              /* ← ここで固定（1枚目がちょうどいいならこの値が近い） */
   display: grid;
-  grid-template-rows: 1fr auto;
+  /* How: スコア表示行の高さを固定して、WIN/LOSE/通常でバー位置がずれないようにする */
+  grid-template-rows: 1fr var(--scoreBandHeight);
   overflow: hidden;           /* Why not: はみ出しでレイアウト崩壊するのを防ぐ */
 }
 
@@ -234,7 +240,7 @@ input {
   letter-spacing: 2px;
 
   justify-self: center;
-  align-self: start;
+  align-self: center;
   margin-top: 6px;
 
   /* How: 長い名前は領域内でクリップ */
@@ -254,11 +260,16 @@ input {
 /* スコア領域は中央寄せ */
 .scoreBand {
   border-top: 1px solid #223042;
-  padding-top: 10px;
+
+  /* How: スコア帯自体の高さを固定し、内容は中央に揃える */
+  height: var(--scoreBandHeight);
   display: flex;
   justify-content: center;
-  align-items: baseline;
+  align-items: center;
   gap: 10px;
+
+  /* Why not: padding-top で上に寄せると状態によって視覚的にズレる */
+  padding-top: 0;
 }
 
 .scoreValue {
@@ -276,24 +287,27 @@ input {
   border-radius: 999px;
   border: 1px solid #33cc66;
   background: rgba(51, 204, 102, 0.12);
+  line-height: 1;
 }
 
 .scoreLose {
-  font-size: 44px;
+  font-size: 36px;
   font-weight: 950;
   letter-spacing: 1px;
   padding: 6px 14px;
   border-radius: 999px;
   border: 1px solid #ff4d4d;
-  background: rgba(255, 77, 77, 0.12);
+  background: rgba(11, 9, 9, 0.12);
+  line-height: 1;
 }
 
 /* NM表示（○×） */
 .nmCounts {
   display: inline-flex;
   gap: 12px;
-  font-size: 28px;
+  font-size: 36px;
   font-weight: 900;
+  line-height: 1;
 }
 
 .nmOk {
