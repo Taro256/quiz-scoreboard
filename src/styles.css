@@ -196,7 +196,7 @@ input {
   padding: 16px;
 
   /* How: 名前が長くてもカードサイズを固定する */
-  height: 640px;              /* ← ここで固定（1枚目がちょうどいいならこの値が近い） */
+  height: 540px;              /* ← ここで固定（1枚目がちょうどいいならこの値が近い） */
   display: grid;
   /* How: スコア表示行の高さを固定して、WIN/LOSE/通常でバー位置がずれないようにする */
   grid-template-rows: 1fr var(--scoreBandHeight);
