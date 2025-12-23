@@ -11,7 +11,16 @@ PC 1 台で起動し、**スクリーン表示用（Display）** と **操作・
 
 ---
 
+
 ## デモ構成
+
+### デモ画面例
+
+#### Display 画面
+![Display画面のデモ](images/demo1.png)
+
+#### Control 画面
+![Control画面のデモ](images/demo2.png)
 
 - **Display 画面**  
   観客・回答者向けの表示専用画面  
